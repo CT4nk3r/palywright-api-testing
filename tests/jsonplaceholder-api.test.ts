@@ -17,4 +17,21 @@ test.describe('JSONPlaceholder API Tests', () => {
     expect(Array.isArray(comments)).toBe(true);
     expect(comments[0]).toHaveProperty('postId', 1);
   });
+
+  test('GET /albums/1/photos should return photos for album 1', async () => {
+    const res = await api.get('/albums/1/photos');
+    const photos = await res.json();
+
+    expect(res.status()).toBe(200);
+    expect(photos.length).toBeGreaterThan(0);
+    expect(photos[0]).toHaveProperty('albumId', 1);
+  });
+
+  test('GET /users/1/albums should return albums for user 1', async () => {
+    const res = await api.get('/users/1/albums');
+    const albums = await res.json();
+
+    expect(res.ok()).toBeTruthy();
+    expect(albums[0]).toHaveProperty('userId', 1);
+  });
 });
