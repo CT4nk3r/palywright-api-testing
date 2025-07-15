@@ -1,6 +1,7 @@
 import { test, expect, request } from '@playwright/test';
+import { album1, photo1 } from './fixtures';
 
-test.describe('JSONPlaceholder API Tests', () => {
+test.describe('JSONPlaceholder Albums API Tests', () => {
   let api;
 
   test.beforeAll(async ({ playwright }) => {
@@ -9,13 +10,12 @@ test.describe('JSONPlaceholder API Tests', () => {
     });
   });
 
-  test('GET /posts/1/comments should return comments for post 1', async () => {
-    const res = await api.get('/posts/1/comments');
+  test('GET /albums/1 should return album 1', async () => {
+    const res = await api.get('/albums/1');
     expect(res.ok()).toBeTruthy();
 
-    const comments = await res.json();
-    expect(Array.isArray(comments)).toBe(true);
-    expect(comments[0]).toHaveProperty('postId', 1);
+    const album = await res.json();
+    expect(album).toEqual(album1);
   });
 
   test('GET /albums/1/photos should return photos for album 1', async () => {
@@ -24,7 +24,7 @@ test.describe('JSONPlaceholder API Tests', () => {
 
     expect(res.status()).toBe(200);
     expect(photos.length).toBeGreaterThan(0);
-    expect(photos[0]).toHaveProperty('albumId', 1);
+    expect(photos[0]).toHaveProperty('albumId', photo1.albumId);
   });
 
   test('GET /users/1/albums should return albums for user 1', async () => {
@@ -32,6 +32,6 @@ test.describe('JSONPlaceholder API Tests', () => {
     const albums = await res.json();
 
     expect(res.ok()).toBeTruthy();
-    expect(albums[0]).toHaveProperty('userId', 1);
+    expect(albums[0]).toHaveProperty('userId', album1.userId);
   });
 });

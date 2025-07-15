@@ -1,0 +1,19 @@
+meta {
+  name: update post
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{baseURL}}/posts/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "foo",
+    "body": "bar",
+    "userId": 1 
+  }
+}

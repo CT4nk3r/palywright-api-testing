@@ -1,0 +1,17 @@
+meta {
+  name: patch post
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{baseURL}}/posts/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "foo" 
+  }
+}
